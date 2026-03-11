@@ -1,5 +1,3 @@
-
-
 import java.util.Random;
 
 public class principal {
@@ -8,49 +6,51 @@ public class principal {
 
         Random r = new Random();
 
-    contenedor[][] matriz = new contenedor[10][10];
+        Contenedor[][] matriz = new Contenedor[10][10];
 
-        String[] paises = {"EstadosUnidos", "China", "Canada", "Rusia"};
+        String[] paises = { "EstadosUnidos", "China", "Canada", "Rusia" };
 
-        // Rango para ID
+        
+        String[] buques = { "Titanic", "Poseidon", "Neptuno", "Atlantico", "Pacifico" };
+
         int minId = 100;
         int maxId = 999;
 
-        // Rango para peso
         int minPeso = 500;
         int maxPeso = 5000;
 
-        // Generar 10 contenedores
+        System.out.println("===== REGISTRO DE CONTENEDORES =====\n");
+
         for (int i = 1; i <= 10; i++) {
 
-            // ID aleatorio como en la imagen
             int id = r.nextInt((maxId - minId) + 1) + minId;
 
-            // Peso aleatorio como en la imagen
             int peso = r.nextInt((maxPeso - minPeso) + 1) + minPeso;
 
-            // País aleatorio (0 a 3)
-            int posPais = r.nextInt((3 - 0) + 1) + 0;
+            int posPais = r.nextInt(paises.length);
             String pais = paises[posPais];
 
-            contenedor c = new contenedor(id, pais, peso);
+           
+            int posBuque = r.nextInt(buques.length);
+            String buque = buques[posBuque];
 
-            // Posición aleatoria en matriz
-            int fila = r.nextInt((9 - 0) + 1) + 0;
-            int col = r.nextInt((9 - 0) + 1) + 0;
+            Contenedor c = new Contenedor(id, pais, peso);
+
+            int fila = r.nextInt(10);
+            int col = r.nextInt(10);
 
             matriz[fila][col] = c;
 
+            System.out.println("Buque: " + buque);
             System.out.println("Ubicado en fila " + fila + " columna " + col);
             System.out.println(c);
             System.out.println();
         }
 
-        // Mostrar estado simple de la matriz
         System.out.println("Estado de la matriz:");
 
-        for (int f = 0; f < 10; f++) {
-            for (int c = 0; c < 10; c++) {
+        for (int f = 0; f < matriz.length; f++) {
+            for (int c = 0; c < matriz.length; c++) {
 
                 if (matriz[f][c] == null) {
                     System.out.print("[ ] ");
@@ -59,6 +59,31 @@ public class principal {
                 }
             }
             System.out.println();
+        }
+
+        int pesoTotal = 0;
+
+        for (int f = 0; f < matriz.length; f++) {
+            for (int c = 0; c < matriz[f].length; c++) {
+
+                if (matriz[f][c] != null) {
+                    pesoTotal += matriz[f][c].getPeso();
+                }
+            }
+        }
+
+        System.out.println("\nPeso total de los contenedores: " + pesoTotal);
+
+        System.out.println("\n===== LISTA DE PAISES DE ORIGEN =====");
+        System.out.println("Estados Unidos");
+        System.out.println("China");
+        System.out.println("Canada");
+        System.out.println("Rusia");
+
+        
+        System.out.println("\n===== LISTA DE BUQUES =====");
+        for (String b : buques) {
+            System.out.println(b);
         }
     }
 }
